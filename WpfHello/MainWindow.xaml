@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfHello"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="500" MinHeight="350" MinWidth="300" Closing="Window_Closing">
+        Title="MainWindow" Height="350" Width="500" MinHeight="350" MinWidth="300" Closing="Window_Closing" Top="25" Left="25">
     <Grid>
         <Menu HorizontalAlignment="Left" VerticalAlignment="Top">
             <MenuItem Header="File">
@@ -18,5 +18,7 @@
         <Button x:Name="retBut" Content="Ret Name" HorizontalAlignment="Left" Margin="109,139,0,0" VerticalAlignment="Top" Click="retBut_Click"/>
         <TextBox x:Name="setText" HorizontalAlignment="Left" Margin="250,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="setText_TextChanged"/>
         <Label x:Name="retLabel" Content="" HorizontalAlignment="Center" Margin="0,139,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="New_Win" Content="New Win" HorizontalAlignment="Left" Margin="117,214,0,0" VerticalAlignment="Top" Click="New_Win_Click"/>
+        <TextBlock x:Name="txtBlock"  HorizontalAlignment="Left" Margin="255,224,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="50" Width="75"/>
     </Grid>
 </Window>

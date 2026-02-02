@@ -21,6 +21,8 @@ namespace WpfHello
     public partial class MainWindow : Window
     {
         bool isDataDirty = false;
+        public MyWindow myWin { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -97,6 +99,17 @@ namespace WpfHello
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void New_Win_Click(object sender, RoutedEventArgs e)
+        {
+            if (myWin == null)
+                myWin = new MyWindow();
+            myWin.Owner = this;
+            var Location = New_Win.PointToScreen(new Point(0, 0));
+            myWin.Top = Location.X + New_Win.Width;
+            myWin.Left = Location.Y;
+            myWin.Show();
         }
     }
 }
