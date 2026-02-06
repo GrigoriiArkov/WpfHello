@@ -21,6 +21,7 @@ namespace WpfHello
     public partial class MainWindow : Window
     {
         bool isDataDirty = false;
+        string nameFile = "C:\\Users\\myarkovy\\Desktop\\ИТМО\\05_Разработка Windows приложений\\ДЗ\\WPF Практическая 1\\Упр 1\\username.txt";
         public MyWindow myWin { get; set; }
 
         public MainWindow()
@@ -35,46 +36,6 @@ namespace WpfHello
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             throw new NotImplementedException();
-        }
-
-        private void setBut_Click(object sender, RoutedEventArgs e)
-        {
-            System.IO.StreamWriter sw = null;
-            try
-            {
-                sw = new System.IO.StreamWriter("C:\\Users\\myarkovy\\Desktop\\ИТМО\\05_Разработка Windows приложений\\ДЗ\\WPF Практическая 1\\Упр 1\\username.txt");
-                sw.WriteLine(setText.Text);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                if (sw != null)
-                    sw.Close();
-            }
-            retBut.IsEnabled = true;
-            isDataDirty = false;
-        }
-
-        private void retBut_Click(object sender, RoutedEventArgs e)
-        {
-            System.IO.StreamReader sr = null;
-            try
-            {
-                using (sr = new System.IO.StreamReader("C:\\Users\\myarkovy\\Desktop\\ИТМО\\05_Разработка Windows приложений\\ДЗ\\WPF Практическая 1\\Упр 1\\username.txt"))
-                    retLabel.Content = "Приветствую вас, уважаемый" + sr.ReadToEnd();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                if (sr != null)
-                    sr.Close();
-            }
         }
 
         private void setText_TextChanged(object sender, TextChangedEventArgs e)
@@ -110,6 +71,47 @@ namespace WpfHello
             myWin.Top = Location.X + New_Win.Width;
             myWin.Left = Location.Y;
             myWin.Show();
+        }
+
+        private void SetBut() //Добавил в рамках Практической №3
+        {
+            System.IO.StreamWriter sw = new System.IO.StreamWriter(nameFile);
+            sw.WriteLine(setText.Text);
+            sw.Close();
+            retBut.IsEnabled = true;
+            isDataDirty = false;
+        }
+
+        private void RetBut() //Добавил в рамках Практической №3
+        {
+            System.IO.StreamReader sr = new System.IO.StreamReader(nameFile);
+            string content = sr.ReadToEnd();
+            setText.Text = content;
+            retLabel.Content = "Приветствую вас, уважаемый " + content;
+            sr.Close();
+            setBut.IsEnabled = true;
+            isDataDirty = false;
+        }
+        private void Grid_Click(object sender, RoutedEventArgs e) //Добавил в рамках Практической №3
+        {
+            FrameworkElement feSource = e.Source as FrameworkElement;
+            try
+            {
+                switch (feSource.Name)
+                {
+                    case "setBut":
+                        SetBut();
+                        break;
+                    case "retBut":
+                        RetBut();
+                        break;
+                }
+                e.Handled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
