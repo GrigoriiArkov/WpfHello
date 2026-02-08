@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,11 @@ namespace WpfHello
         public MainWindow()
         {
             InitializeComponent();
+            CommandBinding abinding = new CommandBinding(); //Добавил в рамках Практической №4
+            abinding.Command = CustomCommands.Launch;
+            abinding.Executed += new ExecutedRoutedEventHandler(Launch_Handler);
+            abinding.CanExecute += new CanExecuteRoutedEventHandler(LaunchEnabled_Handler); //Добавил в рамках Практической №4
+            this.CommandBindings.Add(abinding);
             lbl.Content = "Добрый день!";
             setBut.IsEnabled = false;
             retBut.IsEnabled = false;
@@ -60,17 +66,6 @@ namespace WpfHello
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void New_Win_Click(object sender, RoutedEventArgs e)
-        {
-            if (myWin == null)
-                myWin = new MyWindow();
-            myWin.Owner = this;
-            var Location = New_Win.PointToScreen(new Point(0, 0));
-            myWin.Top = Location.X + New_Win.Width;
-            myWin.Left = Location.Y;
-            myWin.Show();
         }
 
         private void SetBut() //Добавил в рамках Практической №3
@@ -112,6 +107,20 @@ namespace WpfHello
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private void LaunchEnabled_Handler (object sender, CanExecuteRoutedEventArgs e) //Добавил в рамках Практической №4
+        {
+            e.CanExecute = (bool)check.IsChecked;
+        }
+        private void Launch_Handler (object sender, ExecutedRoutedEventArgs e) //Добавил в рамках Практической №4
+        {
+            if (myWin == null)
+                myWin = new MyWindow();
+            myWin.Owner = this;
+            var Location = New_Win.PointToScreen(new Point(0, 0));
+            myWin.Top = Location.X + New_Win.Width;
+            myWin.Left = Location.Y;
+            myWin.Show();
         }
     }
 }
