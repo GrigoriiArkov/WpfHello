@@ -9,8 +9,8 @@
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="MinHeight" Value="50"/>
-            <Setter Property="MinWidth" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="50"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -29,9 +29,63 @@
                             <ContentPresenter HorizontalAlignment="Center" 
                                               VerticalAlignment="Center"/>
                         </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Name="Storyboard">
+                                        <Storyboard Duration="0:0:1">
+                                            <DoubleAnimation Storyboard.TargetProperty="FontSize" To="20" />
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" To="100"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" To="100" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <StopStoryboard BeginStoryboardName="Storyboard" />
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard Duration="0:0:1">
+                                <DoubleAnimation Storyboard.TargetProperty="FontSize" To="20"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Width" To="100"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Height" To="100"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard Duration="0:0:1">
+                                <DoubleAnimation Storyboard.TargetProperty="FontSize"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Width"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Height"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <!--<Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard Name="Storyboard">
+                            <Storyboard Duration="0:0:1">
+                                <DoubleAnimation Storyboard.TargetProperty="FontSize" To="20"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Width" To="100"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Height" To="100"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <StopStoryboard BeginStoryboardName="Storyboard"/>
+                    </Trigger.ExitActions>
+                </Trigger>-->
+            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid>
